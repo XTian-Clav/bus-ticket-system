@@ -1,0 +1,54 @@
+<?php
+
+// app/public/schedules.php
+//
+// GET    /schedules.php          → any logged-in user: list all schedules
+// GET    /schedules.php?id=1     → any logged-in user: get one schedule
+// POST   /schedules.php          → admin only: add schedule
+// PUT    /schedules.php?id=1     → admin only: update schedule
+// DELETE /schedules.php?id=1     → admin only: delete schedule
+
+require_once __DIR__ . '/../core/core_auth.php';
+require_once __DIR__ . '/../core/core_response.php';
+require_once __DIR__ . '/../actions/action_schedules.php';
+require_once __DIR__ . '/../queries/query_schedules.php';
+
+start_session();
+require_login();
+
+$method = $_SERVER['REQUEST_METHOD'];
+$id     = isset($_GET['id']) ? (int) $_GET['id'] : 0;
+$input  = json_decode(file_get_contents('php://input'), true) ?? [];
+
+if ($method === 'GET') {
+    if ($id > 0) {
+        $schedule = get_schedule_by_id($id);
+        if (!$schedule) json_error('Schedule not found.', 404);
+
+        $schedule['available_seats'] = get_available_seats($id);
+        json_ok(['schedule' => $schedule]);
+    }
+
+    json_ok(['schedules' => get_all_schedules()]);
+}
+
+require_admin();
+
+if ($method === 'POST') {
+    $schedule_id = add_schedule($input);
+    json_ok(['schedule_id' => $schedule_id], 'Schedule added successfully.');
+}
+
+if ($method === 'PUT') {
+    if ($id < 1) json_error('Schedule ID is required.');
+    update_schedule($id, $input);
+    json_ok([], 'Schedule updated successfully.');
+}
+
+if ($method === 'DELETE') {
+    if ($id < 1) json_error('Schedule ID is required.');
+    delete_schedule($id);
+    json_ok([], 'Schedule deleted successfully.');
+}
+
+json_error('Method not allowed.', 405);
