@@ -11,7 +11,7 @@ require_guest_page();
 ob_start();
 ?>
 
-<section class="max-w-md mx-auto px-6 py-20">
+<section class="max-w-lg mx-auto px-6 py-12 md:py-20">
 
     <div class="bg-white border border-navy/10 rounded-2xl shadow-sm p-8">
         <h1 class="text-2xl font-bold text-navy mb-1">Welcome back</h1>
@@ -26,13 +26,19 @@ ob_start();
 
             <div>
                 <label class="block text-sm font-medium text-navy mb-1">Password</label>
-                <input type="password" name="password" required
-                       class="w-full px-4 py-2.5 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
+                <div class="relative" x-data="{ show: false }">
+                    <input :type="show ? 'text' : 'password'" name="password" required
+                           class="w-full px-4 py-2.5 pr-11 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
+                    <button type="button" @click="show = !show" tabindex="-1"
+                            class="absolute inset-y-0 right-0 flex items-center pr-3.5 text-navy/40 hover:text-navy transition">
+                        <i :class="show ? 'ri-eye-off-line' : 'ri-eye-line'"></i>
+                    </button>
+                </div>
             </div>
 
             <button type="submit"
-                    class="w-full py-2.5 bg-navy text-white font-semibold rounded-lg hover:bg-navy-light transition">
-                Log In
+                    class="w-full flex items-center justify-center gap-2 py-2.5 bg-navy text-white font-semibold rounded-lg hover:bg-navy-light transition">
+                    Log In
             </button>
         </form>
 

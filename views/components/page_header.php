@@ -2,7 +2,7 @@
 // views/components/page_header.php
 // Expects: $title, $add_label (optional), $add_target (optional Alpine target to open modal)
 ?>
-<div class="flex items-center justify-between mb-6">
+<div class="flex items-center justify-between flex-wrap gap-3 mb-6">
     <h2 class="text-xl font-bold text-navy"><?= e($title) ?></h2>
 
     <?php if (!empty($add_label)): ?>

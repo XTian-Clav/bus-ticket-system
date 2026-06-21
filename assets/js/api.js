@@ -33,9 +33,15 @@ function toast(message, isError = false) {
     if (!box) return;
 
     const el = document.createElement('div');
-    el.className = `px-4 py-3 rounded-lg shadow-lg text-sm font-medium text-white ${isError ? 'bg-red-500' : 'bg-navy'} animate-[fadeIn_.2s_ease-out]`;
-    el.textContent = message;
+    el.className = `flex items-center gap-2 px-4 py-3 rounded-lg shadow-lg text-sm font-medium text-white ${isError ? 'bg-red-500' : 'bg-green-600'} animate-[fadeIn_.2s_ease-out]`;
 
+    const icon = document.createElement('i');
+    icon.className = `${isError ? 'ri-error-warning-line' : 'ri-checkbox-circle-line'} text-base flex-shrink-0`;
+
+    const text = document.createElement('span');
+    text.textContent = message;
+
+    el.append(icon, text);
     box.appendChild(el);
     setTimeout(() => el.remove(), 3500);
 }

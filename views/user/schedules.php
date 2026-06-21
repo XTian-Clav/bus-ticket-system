@@ -29,8 +29,8 @@ ob_start();
                 <td class="px-5 py-3 text-navy/70" x-text="sch.seats"></td>
                 <td class="px-5 py-3 text-right">
                     <button @click="openBook(sch)"
-                            class="px-3 py-1.5 bg-navy text-white text-xs font-semibold rounded-lg hover:bg-navy-light transition">
-                        Book
+                            class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-navy text-white text-xs font-semibold rounded-lg hover:bg-navy-light transition">
+                        <i class="ri-ticket-2-line"></i> Book
                     </button>
                 </td>
             </tr>
@@ -43,7 +43,7 @@ ob_start();
     <?php
     $show        = 'showBook';
     $modal_title = 'Book a Seat';
-    $modal_width = 'max-w-lg';
+    $modal_width = 'max-w-2xl';
     ob_start();
     ?>
         <form @submit.prevent="book()" class="space-y-4">
@@ -70,8 +70,8 @@ ob_start();
             </div>
 
             <button type="submit" :disabled="!form.seat_num"
-                    class="w-full py-2.5 bg-navy text-white font-semibold rounded-lg hover:bg-navy-light transition disabled:opacity-40 disabled:cursor-not-allowed">
-                Confirm Booking
+                    class="w-full flex items-center justify-center gap-2 py-2.5 bg-navy text-white font-semibold rounded-lg hover:bg-navy-light transition disabled:opacity-40 disabled:cursor-not-allowed">
+                <i class="ri-checkbox-circle-line"></i> Confirm Booking
             </button>
         </form>
     <?php

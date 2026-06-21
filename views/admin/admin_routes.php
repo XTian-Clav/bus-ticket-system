@@ -28,10 +28,10 @@ ob_start();
                 <td class="px-5 py-3 text-navy/50" x-text="formatDate(route.created_at)"></td>
                 <td class="px-5 py-3 text-right">
                     <button @click="openEdit(route)" class="text-navy/50 hover:text-navy transition mr-3">
-                        <i class="ri-pencil-line"></i>
+                        <i class="ri-pencil-line"></i> Edit
                     </button>
                     <button @click="remove(route.id)" class="text-navy/50 hover:text-red-500 transition">
-                        <i class="ri-delete-bin-line"></i>
+                        <i class="ri-delete-bin-line"></i> Delete
                     </button>
                 </td>
             </tr>
@@ -57,8 +57,8 @@ ob_start();
                 <input x-model="form.destination" required
                        class="w-full px-4 py-2.5 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
             </div>
-            <button type="submit" class="w-full py-2.5 bg-navy text-white font-semibold rounded-lg hover:bg-navy-light transition">
-                Save Route
+            <button type="submit" class="w-full flex items-center justify-center gap-2 py-2.5 bg-navy text-white font-semibold rounded-lg hover:bg-navy-light transition">
+                <i class="ri-save-line"></i> Save Route
             </button>
         </form>
     <?php
@@ -82,8 +82,8 @@ ob_start();
                 <input x-model="form.destination" required
                        class="w-full px-4 py-2.5 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
             </div>
-            <button type="submit" class="w-full py-2.5 bg-navy text-white font-semibold rounded-lg hover:bg-navy-light transition">
-                Update Route
+            <button type="submit" class="w-full flex items-center justify-center gap-2 py-2.5 bg-navy text-white font-semibold rounded-lg hover:bg-navy-light transition">
+                <i class="ri-save-line"></i> Update Route
             </button>
         </form>
     <?php

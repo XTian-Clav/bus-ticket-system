@@ -6,7 +6,7 @@
     <div class="overflow-x-auto">
         <table class="w-full text-sm">
             <thead>
-                <tr class="bg-offwhite border-b border-navy/10 text-left text-navy/60 font-semibold">
+                <tr class="bg-navy/5 border-b border-navy/10 text-left text-navy/70 font-semibold">
                     <?php foreach ($columns as $col): ?>
                         <th class="px-5 py-3"><?= e($col) ?></th>
                     <?php endforeach; ?>

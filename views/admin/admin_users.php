@@ -28,15 +28,15 @@ ob_start();
                 <td class="px-5 py-3 text-navy/70" x-text="user.email"></td>
                 <td class="px-5 py-3">
                     <span class="px-2.5 py-1 rounded-full text-xs font-semibold"
-                          :class="user.role === 'admin' ? 'bg-gold/20 text-gold-dark' : 'bg-navy/10 text-navy'"
+                          :class="user.role === 'admin' ? 'bg-blue-100 text-blue-600' : 'bg-green-100 text-green-700'"
                           x-text="user.role"></span>
                 </td>
                 <td class="px-5 py-3 text-right">
                     <button @click="openEdit(user)" class="text-navy/50 hover:text-navy transition mr-3">
-                        <i class="ri-pencil-line"></i>
+                        <i class="ri-pencil-line"></i> Edit
                     </button>
                     <button @click="remove(user.id)" class="text-navy/50 hover:text-red-500 transition">
-                        <i class="ri-delete-bin-line"></i>
+                        <i class="ri-delete-bin-line"></i> Delete
                     </button>
                 </td>
             </tr>
@@ -74,13 +74,25 @@ ob_start();
             </div>
             <div>
                 <label class="block text-sm font-medium text-navy mb-1">Password</label>
-                <input x-model="form.password" type="password" required
-                       class="w-full px-4 py-2.5 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
+                <div class="relative" x-data="{ show: false }">
+                    <input x-model="form.password" :type="show ? 'text' : 'password'" required
+                           class="w-full px-4 py-2.5 pr-11 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
+                    <button type="button" @click="show = !show" tabindex="-1"
+                            class="absolute inset-y-0 right-0 flex items-center pr-3.5 text-navy/40 hover:text-navy transition">
+                        <i :class="show ? 'ri-eye-off-line' : 'ri-eye-line'"></i>
+                    </button>
+                </div>
             </div>
             <div>
                 <label class="block text-sm font-medium text-navy mb-1">Confirm password</label>
-                <input x-model="form.confirm_password" type="password" required
-                       class="w-full px-4 py-2.5 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
+                <div class="relative" x-data="{ show: false }">
+                    <input x-model="form.confirm_password" :type="show ? 'text' : 'password'" required
+                           class="w-full px-4 py-2.5 pr-11 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
+                    <button type="button" @click="show = !show" tabindex="-1"
+                            class="absolute inset-y-0 right-0 flex items-center pr-3.5 text-navy/40 hover:text-navy transition">
+                        <i :class="show ? 'ri-eye-off-line' : 'ri-eye-line'"></i>
+                    </button>
+                </div>
             </div>
             <div>
                 <label class="block text-sm font-medium text-navy mb-1">Role</label>
@@ -90,8 +102,8 @@ ob_start();
                     <option value="admin">Admin</option>
                 </select>
             </div>
-            <button type="submit" class="w-full py-2.5 bg-navy text-white font-semibold rounded-lg hover:bg-navy-light transition">
-                Save User
+            <button type="submit" class="w-full flex items-center justify-center gap-2 py-2.5 bg-navy text-white font-semibold rounded-lg hover:bg-navy-light transition">
+                <i class="ri-save-line"></i> Save User
             </button>
         </form>
     <?php
@@ -123,8 +135,8 @@ ob_start();
                     <option value="admin">Admin</option>
                 </select>
             </div>
-            <button type="submit" class="w-full py-2.5 bg-navy text-white font-semibold rounded-lg hover:bg-navy-light transition">
-                Update User
+            <button type="submit" class="w-full flex items-center justify-center gap-2 py-2.5 bg-navy text-white font-semibold rounded-lg hover:bg-navy-light transition">
+                <i class="ri-save-line"></i> Update User
             </button>
         </form>
     <?php

@@ -1,6 +1,11 @@
-<header class="h-16 bg-white border-b border-navy/10 flex items-center justify-between px-6">
+<header class="h-16 bg-white border-b border-navy/10 flex items-center justify-between px-4 md:px-6">
 
-    <h1 class="text-lg font-bold text-navy"><?= e($title ?? '') ?></h1>
+    <div class="flex items-center gap-3 min-w-0">
+        <button @click="sidebarOpen = !sidebarOpen" class="md:hidden text-navy/70 hover:text-navy transition flex-shrink-0">
+            <i class="ri-menu-line text-2xl"></i>
+        </button>
+        <h1 class="text-lg font-bold text-navy truncate"><?= e($title ?? '') ?></h1>
+    </div>
 
     <div x-data="{ open: false }" class="relative">
         <button @click="open = !open" @click.outside="open = false"

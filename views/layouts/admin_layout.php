@@ -13,14 +13,14 @@ require_admin_page();
 <head>
     <?php require __DIR__ . '/../partials/head.php'; ?>
 </head>
-<body class="bg-offwhite min-h-screen flex">
+<body class="bg-offwhite min-h-screen flex" x-data="{ sidebarOpen: false }">
 
     <?php require __DIR__ . '/../partials/admin_sidebar.php'; ?>
 
     <div class="flex-1 min-w-0 flex flex-col">
         <?php require __DIR__ . '/../partials/topbar.php'; ?>
 
-        <main class="flex-1 p-6">
+        <main class="flex-1 p-4 md:p-6">
             <?= $content ?>
         </main>
     </div>

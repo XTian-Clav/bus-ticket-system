@@ -4,7 +4,7 @@
 // Provides its own Alpine scope; drop inside any page.
 ?>
 <div x-data="avatarUpload(<?= (int) $user['id'] ?>, <?= json_encode($user['avatar'] ?? null) ?>)"
-     class="bg-white border border-navy/10 rounded-2xl shadow-sm p-6 flex items-center gap-5 mb-6">
+     class="bg-white border border-navy/10 rounded-2xl shadow-sm p-6 flex items-center gap-5 mb-6 flex-wrap">
 
     <div class="relative flex-shrink-0">
         <template x-if="preview || avatar">

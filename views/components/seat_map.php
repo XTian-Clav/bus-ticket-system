@@ -1,9 +1,9 @@
 <?php
 // views/components/seat_map.php
 // Pure Alpine markup — expects an enclosing x-data with: totalSeats, takenSeats (array), seatNum (selected, via form.seat_num)
-// Renders a simple grid of seat buttons, 4 per row (2-aisle-2 style).
+// Renders a simple grid of seat buttons (5 per row, 7 on wider screens).
 ?>
-<div class="grid grid-cols-4 gap-2 max-h-64 overflow-y-auto p-1">
+<div class="grid grid-cols-5 sm:grid-cols-7 gap-2 max-h-80 overflow-y-auto p-1">
     <template x-for="seat in Array.from({ length: totalSeats }, (_, i) => i + 1)" :key="seat">
         <button type="button"
                 @click="!takenSeats.includes(seat) && (form.seat_num = seat)"
@@ -19,7 +19,7 @@
     </template>
 </div>
 
-<div class="flex items-center gap-4 mt-3 text-xs text-navy/50">
+<div class="flex items-center flex-wrap gap-x-4 gap-y-2 mt-3 text-xs text-navy/50">
     <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-white border border-navy/20"></span> Available</span>
     <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-navy"></span> Selected</span>
     <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-offwhite border border-navy/5"></span> Taken</span>

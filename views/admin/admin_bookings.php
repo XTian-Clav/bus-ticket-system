@@ -35,7 +35,7 @@ ob_start();
                 <td class="px-5 py-3 text-right">
                     <button x-show="b.status === 'confirmed'" @click="cancelBooking(b.id)"
                             class="text-navy/50 hover:text-red-500 transition">
-                        <i class="ri-close-circle-line"></i>
+                        <i class="ri-close-circle-line"></i> Cancel
                     </button>
                 </td>
             </tr>

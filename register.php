@@ -11,54 +11,67 @@ require_guest_page();
 ob_start();
 ?>
 
-<section class="max-w-md mx-auto px-6 py-16">
+<section class="max-w-2xl mx-auto px-6 py-10 md:py-16">
 
     <div class="bg-white border border-navy/10 rounded-2xl shadow-sm p-8">
         <h1 class="text-2xl font-bold text-navy mb-1">Create an account</h1>
         <p class="text-navy/60 text-sm mb-6">Book bus trips in just a few clicks.</p>
 
         <form id="register-form" class="space-y-4">
-            <div>
-                <label class="block text-sm font-medium text-navy mb-1">Full name</label>
-                <input type="text" name="fullname" required
-                       class="w-full px-4 py-2.5 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
-            </div>
+            <div class="grid sm:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-navy mb-1">Full name</label>
+                    <input type="text" name="fullname" required
+                           class="w-full px-4 py-2.5 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
+                </div>
 
-            <div>
-                <label class="block text-sm font-medium text-navy mb-1">Username</label>
-                <input type="text" name="username" required
-                       class="w-full px-4 py-2.5 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
-                <p class="text-xs text-navy/40 mt-1">3–30 characters: letters, numbers, underscores.</p>
-            </div>
+                <div>
+                    <label class="block text-sm font-medium text-navy mb-1">Username</label>
+                    <input type="text" name="username" required
+                           class="w-full px-4 py-2.5 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
+                </div>
 
-            <div>
-                <label class="block text-sm font-medium text-navy mb-1">Email</label>
-                <input type="email" name="email" required
-                       class="w-full px-4 py-2.5 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
-            </div>
+                <div>
+                    <label class="block text-sm font-medium text-navy mb-1">Email</label>
+                    <input type="email" name="email" required
+                           class="w-full px-4 py-2.5 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
+                </div>
 
-            <div>
-                <label class="block text-sm font-medium text-navy mb-1">Contact number</label>
-                <input type="text" name="contact" required
-                       class="w-full px-4 py-2.5 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
-            </div>
+                <div>
+                    <label class="block text-sm font-medium text-navy mb-1">Contact number</label>
+                    <input type="text" name="contact" required
+                           class="w-full px-4 py-2.5 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
+                </div>
 
-            <div>
-                <label class="block text-sm font-medium text-navy mb-1">Password</label>
-                <input type="password" name="password" required
-                       class="w-full px-4 py-2.5 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
-                <p class="text-xs text-navy/40 mt-1">8+ characters, 1 uppercase, 1 number, 1 special character.</p>
-            </div>
+                <div>
+                    <label class="block text-sm font-medium text-navy mb-1">Password</label>
+                    <div class="relative" x-data="{ show: false }">
+                        <input :type="show ? 'text' : 'password'" name="password" required
+                               class="w-full px-4 py-2.5 pr-11 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
+                        <button type="button" @click="show = !show" tabindex="-1"
+                                class="absolute inset-y-0 right-0 flex items-center pr-3.5 text-navy/40 hover:text-navy transition">
+                            <i :class="show ? 'ri-eye-off-line' : 'ri-eye-line'"></i>
+                        </button>
+                    </div>
+                    <p class="text-xs text-navy/40 mt-1">8+ characters, 1 uppercase, 1 number, 1 special character.</p>
+                </div>
 
-            <div>
-                <label class="block text-sm font-medium text-navy mb-1">Confirm password</label>
-                <input type="password" name="confirm_password" required
-                       class="w-full px-4 py-2.5 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
+                <div>
+                    <label class="block text-sm font-medium text-navy mb-1">Confirm password</label>
+                    <div class="relative" x-data="{ show: false }">
+                        <input :type="show ? 'text' : 'password'" name="confirm_password" required
+                               class="w-full px-4 py-2.5 pr-11 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
+                        <button type="button" @click="show = !show" tabindex="-1"
+                                class="absolute inset-y-0 right-0 flex items-center pr-3.5 text-navy/40 hover:text-navy transition">
+                            <i :class="show ? 'ri-eye-off-line' : 'ri-eye-line'"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
 
             <button type="submit"
-                    class="w-full py-2.5 bg-navy text-white font-semibold rounded-lg hover:bg-navy-light transition">
-                Register
+                    class="w-full flex items-center justify-center gap-2 py-2.5 bg-navy text-white font-semibold rounded-lg hover:bg-navy-light transition">
+                    Register
             </button>
         </form>
 
