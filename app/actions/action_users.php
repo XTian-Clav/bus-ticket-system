@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 // app/actions/action_users.php
 
@@ -10,7 +11,7 @@ require_once __DIR__ . '/../queries/query_users.php';
 
 function validate_new_user_fields(array $data): void
 {
-    $required = ['username', 'fullname', 'email', 'contact', 'password'];
+    $required = ['username', 'fullname', 'email', 'contact', 'password', 'confirm_password'];
     foreach ($required as $field) {
         if (empty(trim($data[$field] ?? ''))) {
             json_error("The {$field} field is required.");
@@ -31,6 +32,10 @@ function validate_new_user_fields(array $data): void
         json_error('Password must be at least 8 characters and include one uppercase letter, one number, and one special character.');
     }
 
+    if (($data['confirm_password'] ?? '') !== $data['password']) {
+        json_error('Passwords do not match.');
+    }
+
     if (get_user_by_email($email)) {
         json_error('That email address is already registered.');
     }
@@ -47,12 +52,12 @@ function register_user(array $data): int
     validate_new_user_fields($data);
 
     return db_insert('users', [
-        'username' => $username,
+        'username' => trim($data['username']),
         'fullname' => trim($data['fullname']),
-        'email'    => $email,
+        'email'    => strtolower(trim($data['email'])),
         'contact'  => trim($data['contact']),
         'password' => password_hash($data['password'], PASSWORD_BCRYPT),
-        'role' => 'user',
+        'role'     => 'user',
     ]);
 }
 
@@ -79,7 +84,7 @@ function login_user(string $usernameOrEmail, string $password): array|false
 
 // ── UPDATE ────────────────────────────────────────────────────────────────────
 
-function update_user(int $id, array $data): bool
+function update_user(int $id, array $data, bool $is_admin = false): bool
 {
     if (!get_user_by_id($id)) {
         json_error('User not found.', 404);
@@ -112,11 +117,83 @@ function update_user(int $id, array $data): bool
 
 function delete_user(int $id): bool
 {
-    if (!get_user_by_id($id)) {
+    $user = get_user_by_id($id);
+    if (!$user) {
         json_error('User not found.', 404);
     }
 
+    delete_avatar_file($user['avatar'] ?? null);
+
     return db_delete('users', $id);
+}
+
+// ── AVATAR UPLOAD ─────────────────────────────────────────────────────────────
+
+function update_user_avatar(int $id, array $file): string
+{
+    $user = get_user_by_id($id);
+    if (!$user) {
+        json_error('User not found.', 404);
+    }
+
+    validate_avatar_file($file);
+
+    $cfg      = require __DIR__ . '/../config/config_upload.php';
+    $ext      = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+    $filename = 'user-' . $id . '-' . bin2hex(random_bytes(6)) . '.' . $ext;
+
+    if (!is_dir($cfg['avatar_dir'])) {
+        mkdir($cfg['avatar_dir'], 0755, true);
+    }
+
+    if (!move_uploaded_file($file['tmp_name'], $cfg['avatar_dir'] . '/' . $filename)) {
+        json_error('Failed to save the uploaded file.', 500);
+    }
+
+    delete_avatar_file($user['avatar'] ?? null);
+    db_update('users', $id, ['avatar' => $filename]);
+
+    return $filename;
+}
+
+function validate_avatar_file(array $file): void
+{
+    if (empty($file['name']) || ($file['error'] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_NO_FILE) {
+        json_error('No file was uploaded.');
+    }
+
+    if ($file['error'] !== UPLOAD_ERR_OK) {
+        json_error('File upload failed. Please try again.');
+    }
+
+    $cfg = require __DIR__ . '/../config/config_upload.php';
+
+    if ($file['size'] > $cfg['max_size']) {
+        json_error('Image must be 2MB or smaller.');
+    }
+
+    $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+    if (!in_array($ext, $cfg['allowed_types'], true)) {
+        json_error('Only JPG, PNG, or WEBP images are allowed.');
+    }
+
+    if (!getimagesize($file['tmp_name'])) {
+        json_error('The uploaded file is not a valid image.');
+    }
+}
+
+function delete_avatar_file(?string $filename): void
+{
+    if (empty($filename)) {
+        return;
+    }
+
+    $cfg  = require __DIR__ . '/../config/config_upload.php';
+    $path = $cfg['avatar_dir'] . '/' . $filename;
+
+    if (is_file($path)) {
+        unlink($path);
+    }
 }
 
 // ── ADMIN CREATE USER ──────────────────────────────────────────────────────────

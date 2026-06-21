@@ -1,11 +1,12 @@
 <?php
+declare(strict_types=1);
 
 // app/public/bookings.php
 //
 // GET    /bookings.php          → admin: all bookings | user: own bookings
 // GET    /bookings.php?id=1     → admin: bookings for a schedule
 // POST   /bookings.php          → any logged-in user: book a seat
-// DELETE /bookings.php?id=1     → any logged-in user: cancel own booking (admin cancels any)
+// DELETE /bookings.php?id=1     → admin only: cancel a booking
 
 require_once __DIR__ . '/../core/core_auth.php';
 require_once __DIR__ . '/../core/core_response.php';
@@ -42,6 +43,8 @@ if ($method === 'POST') {
 }
 
 if ($method === 'DELETE') {
+    require_admin();
+
     if ($id < 1) json_error('Booking ID is required.');
 
     cancel_booking(

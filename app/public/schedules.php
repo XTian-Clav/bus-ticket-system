@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 // app/public/schedules.php
 //
@@ -12,6 +13,7 @@ require_once __DIR__ . '/../core/core_auth.php';
 require_once __DIR__ . '/../core/core_response.php';
 require_once __DIR__ . '/../actions/action_schedules.php';
 require_once __DIR__ . '/../queries/query_schedules.php';
+require_once __DIR__ . '/../queries/query_bookings.php';
 
 start_session();
 require_login();
@@ -26,6 +28,11 @@ if ($method === 'GET') {
         if (!$schedule) json_error('Schedule not found.', 404);
 
         $schedule['available_seats'] = get_available_seats($id);
+        $schedule['taken_seats']     = array_column(
+            array_filter(get_bookings_by_schedule($id), fn($b) => $b['status'] === 'confirmed'),
+            'seat_num'
+        );
+
         json_ok(['schedule' => $schedule]);
     }
 

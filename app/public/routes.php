@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 // app/public/routes.php — admin only
 //

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 // app/public/users.php
 //
@@ -51,7 +52,7 @@ if ($method === 'PUT') {
         json_error('Forbidden.', 403);
     }
 
-    update_user($id, $input);
+    update_user($id, $input, is_admin());
     json_ok([], 'User updated successfully.');
 }
 

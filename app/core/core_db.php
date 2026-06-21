@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 // app/core/core_db.php
 // Returns a single shared PDO instance for the entire request.

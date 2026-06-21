@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 // app/core/core_auth.php
 // Session bootstrap + RBAC guard functions.
@@ -27,7 +28,7 @@ function start_session(): void
         && time() - $_SESSION['last_activity'] > SESSION_TIMEOUT) {
         session_unset();
         session_destroy();
-        json_error('Session expired due to inactivity. Please log in again.', 401);
+        return;
     }
 
     $_SESSION['last_activity'] = time();
@@ -43,6 +44,7 @@ function set_auth_session(array $user): void
     $_SESSION['user_id']  = $user['id'];
     $_SESSION['username'] = $user['username'];
     $_SESSION['role']     = $user['role'];
+    $_SESSION['avatar']   = $user['avatar'] ?? null;
 }
 
 function clear_auth_session(): void
@@ -50,6 +52,12 @@ function clear_auth_session(): void
     start_session();
     session_unset();
     session_destroy();
+}
+
+function update_session_avatar(string $filename): void
+{
+    start_session();
+    $_SESSION['avatar'] = $filename;
 }
 
 // ── SESSION READERS ───────────────────────────────────────────────────────────

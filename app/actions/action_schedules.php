@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 // app/actions/action_schedules.php
 
@@ -27,6 +28,10 @@ function add_schedule(array $data): int
         json_error('Fare must be greater than zero.');
     }
 
+    if (!is_valid_datetime($data['depart_time'])) {
+        json_error('A valid departure date and time is required.');
+    }
+
     return db_insert('schedules', [
         'bus_id'      => (int) $data['bus_id'],
         'route_id'    => (int) $data['route_id'],
@@ -46,6 +51,9 @@ function update_schedule(int $id, array $data): bool
 
     foreach ($allowed as $field) {
         if (!empty($data[$field] ?? '')) {
+            if ($field === 'depart_time' && !is_valid_datetime($data[$field])) {
+                json_error('A valid departure date and time is required.');
+            }
             $update[$field] = $field === 'fare' ? (float) $data[$field] : $data[$field];
         }
     }
@@ -64,4 +72,17 @@ function delete_schedule(int $id): bool
     }
 
     return db_delete('schedules', $id);
+}
+
+function is_valid_datetime(mixed $value): bool
+{
+    if (!is_string($value) || trim($value) === '') {
+        return false;
+    }
+
+    $normalized = str_replace('T', ' ', trim($value));
+    $date       = DateTime::createFromFormat('Y-m-d H:i', $normalized)
+        ?: DateTime::createFromFormat('Y-m-d H:i:s', $normalized);
+
+    return $date !== false;
 }

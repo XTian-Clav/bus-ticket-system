@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 // app/public/auth.php
 // POST /app/public/auth.php          → login
