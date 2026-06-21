@@ -10,8 +10,11 @@
         </a>
 
         <div class="hidden md:flex items-center gap-8 text-sm font-medium text-white/80">
-            <a href="<?= url('/index.php#home') ?>" class="flex items-center gap-1.5 hover:text-gold transition">
-                <i class="ri-home-5-line"></i> Home
+            <a href="<?= url('/index.php#routes') ?>" class="flex items-center gap-1.5 hover:text-gold transition">
+                <i class="ri-route-line"></i> Routes
+            </a>
+            <a href="<?= url('/index.php#schedule') ?>" class="flex items-center gap-1.5 hover:text-gold transition">
+                <i class="ri-calendar-line"></i> Schedules
             </a>
             <a href="<?= url('/index.php#about') ?>" class="flex items-center gap-1.5 hover:text-gold transition">
                 <i class="ri-information-line"></i> About
