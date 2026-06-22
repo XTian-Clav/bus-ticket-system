@@ -117,7 +117,7 @@ VALUES (
     'Regular Account',
     'user@gmail.com',
     '09171234568',
-    '$2y$10$m7ueYyVCArtdsLawv/KD2enomfi0ElZ6.qfVwbNwqBL68EttwUWSy', -- hash of 'AdminPass123!'
+    '$2y$10$m7ueYyVCArtdsLawv/KD2enomfi0ElZ6.qfVwbNwqBL68EttwUWSy', -- hash of 'UserPass123!'
     'user'
 );
 
