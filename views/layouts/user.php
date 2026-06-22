@@ -9,18 +9,18 @@ start_session();
 require_user_page();
 ?>
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" class="h-full"> <head>
     <?php require __DIR__ . '/../partials/head.php'; ?>
 </head>
-<body class="bg-offwhite min-h-screen flex" x-data="{ sidebarOpen: false }">
+<body class="bg-offwhite h-screen overflow-hidden flex" x-data="{ sidebarOpen: false }">
 
     <?php require __DIR__ . '/../partials/user_sidebar.php'; ?>
 
-    <div class="flex-1 min-w-0 flex flex-col">
+    <div class="flex-1 min-w-0 flex flex-col h-full overflow-hidden">
+        
         <?php require __DIR__ . '/../partials/topbar.php'; ?>
 
-        <main class="flex-1 p-4 md:p-6">
+        <main class="flex-1 p-4 md:p-6 overflow-y-auto">
             <?= $content ?>
         </main>
     </div>
