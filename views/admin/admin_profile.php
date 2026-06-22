@@ -42,15 +42,17 @@ ob_start();
         <!-- Labeled fields -->
         <div class="mt-6 grid sm:grid-cols-2 gap-4">
             <?php foreach ([
-                ['ri-user-line',        'Username', $user['username']],
-                ['ri-mail-line',        'Email',    $user['email']],
-                ['ri-phone-line',       'Contact',  $user['contact'] ?? '—'],
-                ['ri-calendar-line',    'Member Since', date('F j, Y', strtotime($user['created_at']))],
+                ['ri-user-fill',        'Username', $user['username']],
+                ['ri-mail-fill',        'Email',    $user['email']],
+                ['ri-phone-fill',       'Contact',  $user['contact'] ?? '—'],
+                ['ri-calendar-fill',    'Member Since', date('F j, Y', strtotime($user['created_at']))],
             ] as [$icon, $label, $value]): ?>
-                <div class="flex items-start gap-3 p-3 bg-offwhite rounded-xl">
-                    <i class="<?= $icon ?> text-navy/40 text-lg mt-0.5"></i>
+                <div class="flex items-start gap-3 p-3 p-3 bg-gold/10 rounded-xl">
+                    <div class="w-10 h-10 rounded-lg bg-gold/20 flex items-center justify-center flex-shrink-0">
+                        <i class="<?= $icon ?> text-gold-dark text-xl"></i>
+                    </div>
                     <div>
-                        <p class="text-xs text-navy/40 font-medium uppercase tracking-wide"><?= $label ?></p>
+                        <p class="text-xs text-gold-dark font-medium uppercase tracking-wide"><?= $label ?></p>
                         <p class="text-sm font-semibold text-navy mt-0.5"><?= e($value) ?></p>
                     </div>
                 </div>

@@ -38,7 +38,7 @@ $links = [
 
     <!-- User card -->
     <div class="px-3 py-4 border-t border-white/10">
-        <a href="<?= url('/views/admin/admin_profile.php') ?>"
+        <a href="<?= url('/views/user/profile.php') ?>"
            class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/10 transition group">
             <span class="w-8 h-8 rounded-full bg-gold text-navy flex items-center justify-center font-bold text-sm flex-shrink-0">
                 <?= e(strtoupper(substr($_SESSION['username'] ?? 'U', 0, 1))) ?>
