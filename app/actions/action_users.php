@@ -86,24 +86,48 @@ function login_user(string $usernameOrEmail, string $password): array|false
 
 function update_user(int $id, array $data, bool $is_admin = false): bool
 {
-    if (!get_user_by_id($id)) {
+    $user = get_user_by_id($id);
+    if (!$user) {
         json_error('User not found.', 404);
     }
 
-    $allowed = ['fullname', 'contact'];
-    if ($is_admin) {
-        $allowed[] = 'role';
-    }
-
     $update = [];
-    foreach ($allowed as $field) {
-        if (!empty(trim($data[$field] ?? ''))) {
+
+    // All users may update these fields
+    foreach (['fullname', 'contact', 'username', 'email'] as $field) {
+        if (isset($data[$field]) && trim((string) ($data[$field] ?? '')) !== '') {
             $update[$field] = trim($data[$field]);
         }
     }
 
-    if (isset($update['role']) && !in_array($update['role'], ['user', 'admin'], true)) {
-        json_error('Role must be either "user" or "admin".');
+    // Admin-only
+    if ($is_admin && isset($data['role'])) {
+        $role = trim($data['role']);
+        if (!in_array($role, ['user', 'admin'], true)) {
+            json_error('Role must be either "user" or "admin".');
+        }
+        $update['role'] = $role;
+    }
+
+    if (isset($update['username'])) {
+        if (!preg_match('/^[a-zA-Z0-9_]{3,30}$/', $update['username'])) {
+            json_error('Username must be 3–30 characters: letters, numbers, or underscores only.');
+        }
+        $existing = get_user_by_username($update['username']);
+        if ($existing && (int) $existing['id'] !== $id) {
+            json_error('That username is already taken.');
+        }
+    }
+
+    if (isset($update['email'])) {
+        $update['email'] = strtolower($update['email']);
+        if (!filter_var($update['email'], FILTER_VALIDATE_EMAIL)) {
+            json_error('Invalid email address.');
+        }
+        $existing = get_user_by_email($update['email']);
+        if ($existing && (int) $existing['id'] !== $id) {
+            json_error('That email address is already registered.');
+        }
     }
 
     if (empty($update)) {
@@ -200,7 +224,34 @@ function delete_avatar_file(?string $filename): void
 
 function admin_create_user(array $data): int
 {
-    validate_new_user_fields($data);
+    $required = ['username', 'fullname', 'email', 'contact', 'password'];
+    foreach ($required as $field) {
+        if (empty(trim($data[$field] ?? ''))) {
+            json_error("The {$field} field is required.");
+        }
+    }
+
+    $username = trim($data['username']);
+    if (!preg_match('/^[a-zA-Z0-9_]{3,30}$/', $username)) {
+        json_error('Username must be 3–30 characters: letters, numbers, or underscores only.');
+    }
+
+    $email = strtolower(trim($data['email']));
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        json_error('Invalid email address.');
+    }
+
+    if (!is_strong_password($data['password'])) {
+        json_error('Password must be at least 8 characters and include one uppercase letter, one number, and one special character.');
+    }
+
+    if (get_user_by_email($email)) {
+        json_error('That email address is already registered.');
+    }
+
+    if (get_user_by_username($username)) {
+        json_error('That username is already taken.');
+    }
 
     $role = $data['role'] ?? 'user';
     if (!in_array($role, ['user', 'admin'], true)) {
@@ -208,9 +259,9 @@ function admin_create_user(array $data): int
     }
 
     return db_insert('users', [
-        'username' => trim($data['username']),
+        'username' => $username,
         'fullname' => trim($data['fullname']),
-        'email'    => strtolower(trim($data['email'])),
+        'email'    => $email,
         'contact'  => trim($data['contact']),
         'password' => password_hash($data['password'], PASSWORD_BCRYPT),
         'role'     => $role,

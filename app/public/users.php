@@ -53,6 +53,15 @@ if ($method === 'PUT') {
     }
 
     update_user($id, $input, is_admin());
+
+    // Keep session in sync when user edits their own profile
+    if (auth_user_id() === $id) {
+        $fresh = get_user_by_id($id);
+        if ($fresh) {
+            $_SESSION['username'] = $fresh['username'];
+        }
+    }
+
     json_ok([], 'User updated successfully.');
 }
 

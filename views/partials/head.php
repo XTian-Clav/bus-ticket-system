@@ -81,4 +81,8 @@
     input[type="time"]:hover::-webkit-calendar-picker-indicator {
         opacity: 1;
     }
+
+    /* Hide scrollbar while keeping scroll functionality */
+    .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
 </style>

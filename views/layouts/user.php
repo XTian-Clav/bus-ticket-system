@@ -6,7 +6,7 @@
 require_once __DIR__ . '/../../app/core/core_view.php';
 
 start_session();
-require_login_page();
+require_user_page();
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -15,6 +15,15 @@ function require_login_page(): void
     }
 }
 
+function require_user_page(): void
+{
+    require_login_page();
+
+    if (is_admin()) {
+        redirect(url('/views/admin/admin_dashboard.php'));
+    }
+}
+
 function require_admin_page(): void
 {
     require_login_page();

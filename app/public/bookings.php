@@ -34,8 +34,14 @@ if ($method === 'GET') {
 }
 
 if ($method === 'POST') {
+    $target_user_id = $user_id;
+
+    if (is_admin() && isset($input['user_id']) && (int) $input['user_id'] > 0) {
+        $target_user_id = (int) $input['user_id'];
+    }
+
     $booking_id = book_seat(
-        user_id:     $user_id,
+        user_id:     $target_user_id,
         schedule_id: (int) ($input['schedule_id'] ?? 0),
         seat_num:    (int) ($input['seat_num']    ?? 0),
     );
