@@ -1,0 +1,5 @@
+username: admin
+password: AdminPass123!
+
+username: user
+password: UserPass123!

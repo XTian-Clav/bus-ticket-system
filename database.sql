@@ -99,7 +99,7 @@ CREATE TABLE bookings (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ============================================================
--- Seed: default administrator account
+-- Seed: default administrator and user accounts
 -- ============================================================
 INSERT INTO users (username, fullname, email, contact, password, role)
 VALUES (
@@ -109,6 +109,16 @@ VALUES (
     '09171234567',
     '$2y$10$kV85SVvaP.EACBCNr0rJxuhh33jjtBVYcPW9pA8rX14Hg34a8Y9ES', -- hash of 'AdminPass123!'
     'admin'
+);
+
+INSERT INTO users (username, fullname, email, contact, password, role)
+VALUES (
+    'user',
+    'Regular Account',
+    'user@gmail.com',
+    '09171234568',
+    '$2y$10$m7ueYyVCArtdsLawv/KD2enomfi0ElZ6.qfVwbNwqBL68EttwUWSy', -- hash of 'AdminPass123!'
+    'user'
 );
 
 -- ============================================================
