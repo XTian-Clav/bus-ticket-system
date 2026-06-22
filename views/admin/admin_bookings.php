@@ -75,7 +75,7 @@ ob_start();
                         <option value="">— Select schedule —</option>
                         <template x-for="s in schedules" :key="s.id">
                             <option :value="s.id"
-                                    x-text="`${s.source} → ${s.destination} · ${s.bus_num} · ₱${Number(s.fare).toFixed(2)}`">
+                                    x-text="`${s.source} → ${s.destination}`">
                             </option>
                         </template>
                     </select>
@@ -84,6 +84,15 @@ ob_start();
 
             <template x-if="form.schedule_id">
                 <div>
+                    <template x-if="selectedSchedule">
+                        <p class="text-sm mb-2 text-navy/70">
+                            <span x-text="selectedSchedule.source"></span> →
+                            <span x-text="selectedSchedule.destination"></span>
+                            · <span x-text="selectedSchedule.bus_num"></span>
+                            · <span x-text="`₱${Number(selectedSchedule.fare || 0).toFixed(2)}`"></span>
+                        </p>
+                    </template>
+
                     <label class="block text-sm font-medium text-navy mb-2">Choose a seat</label>
 
                     <template x-if="seatsLoading">
@@ -231,6 +240,12 @@ ob_start();
 
             formatDateTime(d) {
                 return d ? new Date(d).toLocaleString() : '';
+            },
+
+            get selectedSchedule() {
+                return this.schedules.find(
+                    s => s.id == this.form.schedule_id
+                ) || null;
             },
         };
     }

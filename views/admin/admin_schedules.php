@@ -139,7 +139,7 @@ ob_start();
             },
 
             formatDateTime(d) {
-                return d ? new Date(d).toLocaleString() : '';
+                return d ? new Date(d).toLocaleString().replace(',', '') : '';
             },
 
             openEdit(sch) {

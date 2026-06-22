@@ -110,8 +110,3 @@ VALUES (
     '$2y$10$kV85SVvaP.EACBCNr0rJxuhh33jjtBVYcPW9pA8rX14Hg34a8Y9ES', -- hash of 'AdminPass123!'
     'admin'
 );
-
--- ============================================================
--- Migration: run this instead if the `users` table already exists
--- ============================================================
--- ALTER TABLE users ADD COLUMN avatar VARCHAR(255) NULL AFTER role;

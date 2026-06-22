@@ -15,7 +15,7 @@ ob_start();
     <?php require __DIR__ . '/../components/page_header.php'; ?>
 
     <?php
-    $columns = ['Name', 'Username', 'Email', 'Role', ''];
+    $columns = ['Name', 'Username', 'Email', 'Contact', 'Role', ''];
     ob_start();
     ?>
         <template x-if="!loading && users.length === 0">
@@ -26,6 +26,7 @@ ob_start();
                 <td class="px-5 py-3 font-medium text-navy" x-text="user.fullname"></td>
                 <td class="px-5 py-3 text-navy/70" x-text="user.username"></td>
                 <td class="px-5 py-3 text-navy/70" x-text="user.email"></td>
+                <td class="px-5 py-3 text-navy/70" x-text="user.contact"></td>
                 <td class="px-5 py-3">
                     <span class="px-2.5 py-1 rounded-full text-xs font-semibold"
                           :class="user.role === 'admin' ? 'bg-blue-100 text-blue-600' : 'bg-green-100 text-green-700'"
