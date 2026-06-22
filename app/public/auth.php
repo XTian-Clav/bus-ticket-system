@@ -2,8 +2,6 @@
 declare(strict_types=1);
 
 // app/public/auth.php
-// POST /app/public/auth.php          → login
-// POST /app/public/auth.php?logout=1 → logout
 
 require_once __DIR__ . '/../core/core_auth.php';
 require_once __DIR__ . '/../core/core_response.php';

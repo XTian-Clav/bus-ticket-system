@@ -2,12 +2,6 @@
 declare(strict_types=1);
 
 // app/public/buses.php — admin only
-//
-// GET    /buses.php        → list all buses
-// GET    /buses.php?id=1   → get one bus
-// POST   /buses.php        → add bus
-// PUT    /buses.php?id=1   → update bus
-// DELETE /buses.php?id=1   → delete bus
 
 require_once __DIR__ . '/../core/core_auth.php';
 require_once __DIR__ . '/../core/core_response.php';

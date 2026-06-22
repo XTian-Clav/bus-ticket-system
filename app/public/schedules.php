@@ -2,12 +2,6 @@
 declare(strict_types=1);
 
 // app/public/schedules.php
-//
-// GET    /schedules.php          → any logged-in user: list all schedules
-// GET    /schedules.php?id=1     → any logged-in user: get one schedule
-// POST   /schedules.php          → admin only: add schedule
-// PUT    /schedules.php?id=1     → admin only: update schedule
-// DELETE /schedules.php?id=1     → admin only: delete schedule
 
 require_once __DIR__ . '/../core/core_auth.php';
 require_once __DIR__ . '/../core/core_response.php';

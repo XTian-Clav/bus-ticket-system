@@ -2,12 +2,6 @@
 declare(strict_types=1);
 
 // app/public/routes.php — admin only
-//
-// GET    /routes.php        → list all routes
-// GET    /routes.php?id=1   → get one route
-// POST   /routes.php        → add route
-// PUT    /routes.php?id=1   → update route
-// DELETE /routes.php?id=1   → delete route
 
 require_once __DIR__ . '/../core/core_auth.php';
 require_once __DIR__ . '/../core/core_response.php';

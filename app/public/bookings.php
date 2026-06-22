@@ -2,11 +2,6 @@
 declare(strict_types=1);
 
 // app/public/bookings.php
-//
-// GET    /bookings.php          → admin: all bookings | user: own bookings
-// GET    /bookings.php?id=1     → admin: bookings for a schedule
-// POST   /bookings.php          → any logged-in user: book a seat
-// DELETE /bookings.php?id=1     → admin only: cancel a booking
 
 require_once __DIR__ . '/../core/core_auth.php';
 require_once __DIR__ . '/../core/core_response.php';
