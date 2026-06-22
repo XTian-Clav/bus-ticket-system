@@ -2,12 +2,6 @@
 declare(strict_types=1);
 
 // app/public/users.php
-//
-// POST   /users.php              → register a new user (open — no guard)
-// GET    /users.php              → admin: list all users
-// GET    /users.php?id=1         → admin: get one user
-// PUT    /users.php?id=1         → admin or own account: update
-// DELETE /users.php?id=1         → admin only: delete
 
 require_once __DIR__ . '/../core/core_auth.php';
 require_once __DIR__ . '/../core/core_response.php';
@@ -59,6 +53,7 @@ if ($method === 'PUT') {
         $fresh = get_user_by_id($id);
         if ($fresh) {
             $_SESSION['username'] = $fresh['username'];
+            $_SESSION['role']     = $fresh['role'];
         }
     }
 
@@ -69,6 +64,10 @@ if ($method === 'DELETE') {
     require_admin();
 
     if ($id < 1) json_error('User ID is required.');
+
+    if ($id === auth_user_id()) {
+        json_error('You cannot delete your own account.');
+    }
 
     delete_user($id);
     json_ok([], 'User deleted successfully.');

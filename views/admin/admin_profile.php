@@ -47,7 +47,7 @@ ob_start();
                 ['ri-phone-fill',       'Contact',  $user['contact'] ?? '—'],
                 ['ri-calendar-fill',    'Member Since', date('F j, Y', strtotime($user['created_at']))],
             ] as [$icon, $label, $value]): ?>
-                <div class="flex items-start gap-3 p-3 p-3 bg-gold/10 rounded-xl">
+                <div class="flex items-start gap-3 p-3 bg-gold/10 rounded-xl">
                     <div class="w-10 h-10 rounded-lg bg-gold/20 flex items-center justify-center flex-shrink-0">
                         <i class="<?= $icon ?> text-gold-dark text-xl"></i>
                     </div>

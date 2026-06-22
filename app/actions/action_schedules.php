@@ -32,6 +32,10 @@ function add_schedule(array $data): int
         json_error('A valid departure date and time is required.');
     }
 
+    if (new DateTime($data['depart_time']) <= new DateTime()) {
+        json_error('Departure time must be in the future.');
+    }
+
     return db_insert('schedules', [
         'bus_id'      => (int) $data['bus_id'],
         'route_id'    => (int) $data['route_id'],
@@ -53,6 +57,10 @@ function update_schedule(int $id, array $data): bool
         if (!empty($data[$field] ?? '')) {
             if ($field === 'depart_time' && !is_valid_datetime($data[$field])) {
                 json_error('A valid departure date and time is required.');
+            }
+
+            if ($field === 'depart_time' && new DateTime($data[$field]) <= new DateTime()) {
+                json_error('Departure time must be in the future.');
             }
             $update[$field] = $field === 'fare' ? (float) $data[$field] : $data[$field];
         }

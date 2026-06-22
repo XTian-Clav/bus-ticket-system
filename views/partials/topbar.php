@@ -10,7 +10,9 @@
     <div x-data="{ open: false }" class="relative">
         <button @click="open = !open" @click.outside="open = false"
                 class="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-offwhite transition">
-            <?php require __DIR__ . '/../components/avatar.php'; ?>
+            <span class="w-8 h-8 rounded-full bg-navy text-white flex items-center justify-center font-bold text-sm flex-shrink-0">
+                <?= e(strtoupper(substr($_SESSION['username'] ?? 'U', 0, 1))) ?>
+            </span>
             <span class="text-sm font-medium text-navy hidden sm:block"><?= e($_SESSION['username'] ?? '') ?></span>
             <i class="ri-arrow-down-s-line text-navy/50"></i>
         </button>

@@ -43,6 +43,13 @@ function update_bus(int $id, array $data): bool
         }
     }
 
+    if (isset($update['bus_num'])) {
+        $existing = db_find_one('buses', ['bus_num' => $update['bus_num']]);
+        if ($existing && (int) $existing['id'] !== $id) {
+            json_error('A bus with that number already exists.');
+        }
+    }
+
     if (empty($update)) {
         json_error('No valid fields provided to update.');
     }

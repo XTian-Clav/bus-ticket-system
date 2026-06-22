@@ -19,7 +19,7 @@ ob_start();
     ob_start();
     ?>
         <template x-if="!loading && users.length === 0">
-            <tr><td colspan="5" class="px-5 py-8 text-center text-navy/40">No users yet.</td></tr>
+            <tr><td colspan="6" class="px-5 py-8 text-center text-navy/40">No users yet.</td></tr>
         </template>
         <template x-for="user in users" :key="user.id">
             <tr>

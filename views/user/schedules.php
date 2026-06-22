@@ -106,7 +106,19 @@ ob_start();
             },
 
             formatDateTime(d) {
-                return d ? new Date(d).toLocaleString().replace(',', '') : '';
+                if (!d) return '';
+                const date = new Date(d);
+                const datePart = date.toLocaleDateString('en-US', {
+                    month: 'long',
+                    day: 'numeric',
+                    year: 'numeric',
+                });
+                const timePart = date.toLocaleTimeString('en-US', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: true,
+                });
+                return `${datePart} — ${timePart}`;
             },
 
             async openBook(sch) {

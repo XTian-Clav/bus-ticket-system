@@ -6,7 +6,6 @@
 <script>
     const BASE_URL = <?= json_encode(BASE_URL) ?>;
 
-    // Mirrors the PHP url() helper in core_response.php.
     function url(path = '') {
         path = path.replace(/^\/+|\/+$/g, '');
         return path === '' ? (BASE_URL || '/') : `${BASE_URL}/${path}`;
@@ -27,6 +26,9 @@
                     navy:  { DEFAULT: '#0F1F3D', dark: '#0A1530', light: '#1C3463' },
                     gold:  { DEFAULT: '#E2A72B', dark: '#BA851A', light: '#F5D56E' },
                     offwhite: '#F2ECE1',
+
+                    green:    { DEFAULT: '#10B981', dark: '#064E3B', light: '#E6F4EA' },
+                    red:      { DEFAULT: '#EF4444', dark: '#7F1D1D', light: '#FCE8E6' },
                 },
                 fontFamily: {
                     sans: ['Montserrat', 'sans-serif'],
@@ -48,7 +50,6 @@
     [x-cloak] { display: none !important; }
     body { font-family: 'Montserrat', sans-serif; }
 
-    /* Consistent native control styling (selects + date/time pickers) */
     select {
         -webkit-appearance: none;
         -moz-appearance: none;
@@ -82,7 +83,6 @@
         opacity: 1;
     }
 
-    /* Hide scrollbar while keeping scroll functionality */
     .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
     .no-scrollbar::-webkit-scrollbar { display: none; }
 </style>
