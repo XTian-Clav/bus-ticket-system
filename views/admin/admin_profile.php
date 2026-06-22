@@ -74,13 +74,13 @@ ob_start();
                 <div>
                     <label class="block text-sm font-medium text-navy mb-1">Contact number</label>
                     <input x-model="form.contact"
+                           maxlength="11" inputmode="numeric"
                            class="w-full px-4 py-2.5 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-navy mb-1">Username</label>
                     <input x-model="form.username"
                            class="w-full px-4 py-2.5 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
-                    <p class="text-xs text-navy/40 mt-1">3–30 chars: letters, numbers, underscores.</p>
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-navy mb-1">Email</label>

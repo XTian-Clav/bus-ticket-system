@@ -28,6 +28,10 @@ function validate_new_user_fields(array $data): void
         json_error('Invalid email address.');
     }
 
+    if (!is_valid_ph_contact($data['contact'])) {
+        json_error('Contact number must be 11 digits and start with 09 (e.g. 09123456789).');
+    }
+
     if (!is_strong_password($data['password'])) {
         json_error('Password must be at least 8 characters and include one uppercase letter, one number, and one special character.');
     }
@@ -129,6 +133,10 @@ function update_user(int $id, array $data, bool $is_admin = false): bool
         }
     }
 
+    if (isset($update['contact']) && !is_valid_ph_contact($update['contact'])) {
+        json_error('Contact number must be 11 digits and start with 09 (e.g. 09123456789).');
+    }
+
     if (empty($update)) {
         json_error('No valid fields provided to update.');
     }
@@ -169,6 +177,10 @@ function admin_create_user(array $data): int
         json_error('Invalid email address.');
     }
 
+    if (!is_valid_ph_contact($data['contact'])) {
+        json_error('Contact number must be 11 digits and start with 09 (e.g. 09123456789).');
+    }
+
     if (!is_strong_password($data['password'])) {
         json_error('Password must be at least 8 characters and include one uppercase letter, one number, and one special character.');
     }
@@ -205,4 +217,10 @@ function is_strong_password(string $password): bool
     if (!preg_match('/[0-9]/', $password)) return false;
     if (!preg_match('/[\W_]/', $password)) return false;
     return true;
+}
+
+function is_valid_ph_contact(string $contact): bool
+{
+    // Philippine mobile number (e.g. 09123456789).
+    return (bool) preg_match('/^09\d{9}$/', trim($contact));
 }

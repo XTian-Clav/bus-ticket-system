@@ -20,14 +20,14 @@ ob_start();
         <form id="login-form" class="space-y-4">
             <div>
                 <label class="block text-sm font-medium text-navy mb-1">Username or email</label>
-                <input type="text" name="username_or_email" required
+                <input type="text" name="username_or_email" required placeholder="Enter your username or email"
                        class="w-full px-4 py-2.5 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
             </div>
 
             <div>
                 <label class="block text-sm font-medium text-navy mb-1">Password</label>
                 <div class="relative" x-data="{ show: false }">
-                    <input :type="show ? 'text' : 'password'" name="password" required
+                    <input :type="show ? 'text' : 'password'" name="password" required placeholder="Enter your password"
                            class="w-full px-4 py-2.5 pr-11 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
                     <button type="button" @click="show = !show" tabindex="-1"
                             class="absolute inset-y-0 right-0 flex items-center pr-3.5 text-navy/40 hover:text-navy transition">

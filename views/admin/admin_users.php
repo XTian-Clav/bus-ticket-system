@@ -58,28 +58,29 @@ ob_start();
             <div class="grid sm:grid-cols-2 gap-4">
                 <div>
                     <label class="block text-sm font-medium text-navy mb-1">Full name</label>
-                    <input x-model="form.fullname" required
+                    <input x-model="form.fullname" required placeholder="Enter your full name"
                            class="w-full px-4 py-2.5 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-navy mb-1">Username</label>
-                    <input x-model="form.username" required
+                    <input x-model="form.username" required placeholder="Enter your username"
                            class="w-full px-4 py-2.5 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-navy mb-1">Email</label>
-                    <input x-model="form.email" type="email" required
+                    <input x-model="form.email" type="email" required placeholder="Enter your email"
                            class="w-full px-4 py-2.5 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-navy mb-1">Contact number</label>
                     <input x-model="form.contact" required
+                           maxlength="11" inputmode="numeric" placeholder="Enter your email"
                            class="w-full px-4 py-2.5 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-navy mb-1">Password</label>
                     <div class="relative" x-data="{ show: false }">
-                        <input x-model="form.password" :type="show ? 'text' : 'password'" required
+                        <input x-model="form.password" :type="show ? 'text' : 'password'" required placeholder="Enter your password"
                                class="w-full px-4 py-2.5 pr-11 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
                         <button type="button" @click="show = !show" tabindex="-1"
                                 class="absolute inset-y-0 right-0 flex items-center pr-3.5 text-navy/40 hover:text-navy transition">
@@ -132,6 +133,7 @@ ob_start();
                 <div>
                     <label class="block text-sm font-medium text-navy mb-1">Contact number</label>
                     <input x-model="form.contact" required
+                           maxlength="11" inputmode="numeric"
                            class="w-full px-4 py-2.5 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
                 </div>
                 <div>

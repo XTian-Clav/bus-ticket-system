@@ -10,7 +10,7 @@ CREATE DATABASE IF NOT EXISTS bus_ticket_system
 USE bus_ticket_system;
 
 -- ============================================================
--- 1. Users
+-- Users
 -- ============================================================
 CREATE TABLE users (
     id          INT UNSIGNED         NOT NULL AUTO_INCREMENT,
@@ -29,7 +29,7 @@ CREATE TABLE users (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ============================================================
--- 2. Buses
+-- Buses
 -- ============================================================
 CREATE TABLE buses (
     id          INT UNSIGNED     NOT NULL AUTO_INCREMENT,
@@ -42,7 +42,7 @@ CREATE TABLE buses (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ============================================================
--- 3. Routes
+-- Routes
 -- ============================================================
 CREATE TABLE routes (
     id          INT UNSIGNED  NOT NULL AUTO_INCREMENT,
@@ -56,7 +56,7 @@ CREATE TABLE routes (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ============================================================
--- 4. Schedules
+-- Schedules
 -- ============================================================
 CREATE TABLE schedules (
     id          INT UNSIGNED   NOT NULL AUTO_INCREMENT,
@@ -78,7 +78,7 @@ CREATE TABLE schedules (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ============================================================
--- 5. Bookings
+-- Bookings
 -- ============================================================
 CREATE TABLE bookings (
     id          INT UNSIGNED                  NOT NULL AUTO_INCREMENT,
@@ -110,3 +110,152 @@ VALUES (
     '$2y$10$kV85SVvaP.EACBCNr0rJxuhh33jjtBVYcPW9pA8rX14Hg34a8Y9ES', -- hash of 'AdminPass123!'
     'admin'
 );
+
+-- ============================================================
+-- Seed: Bus Ticketing System
+-- Buses, Routes, and Sample Schedules
+-- ============================================================
+
+USE bus_ticket_system;
+
+-- ============================================================
+-- Buses
+-- Palawan's intercity buses typically seat 45–55 passengers
+-- ============================================================
+INSERT INTO buses (bus_num, seats) VALUES
+    ('PLW-001', 45),
+    ('PLW-002', 45),
+    ('PLW-003', 50),
+    ('PLW-004', 50),
+    ('PLW-005', 55),
+    ('PLW-006', 55),
+    ('PLW-007', 45),
+    ('PLW-008', 50);
+
+-- ============================================================
+-- Routes
+-- Major intercity routes in Palawan
+-- ============================================================
+INSERT INTO routes (source, destination) VALUES
+    -- From Puerto Princesa
+    ('Puerto Princesa', 'El Nido'),
+    ('Puerto Princesa', 'Coron'),
+    ('Puerto Princesa', 'Roxas'),
+    ('Puerto Princesa', 'San Vicente'),
+    ('Puerto Princesa', 'Brooke\'s Point'),
+    ('Puerto Princesa', 'Quezon'),
+    ('Puerto Princesa', 'Narra'),
+    ('Puerto Princesa', 'Aborlan'),
+
+    -- To Puerto Princesa
+    ('El Nido', 'Puerto Princesa'),
+    ('Coron', 'Puerto Princesa'),
+    ('Roxas', 'Puerto Princesa'),
+    ('San Vicente', 'Puerto Princesa'),
+    ('Brooke\'s Point', 'Puerto Princesa'),
+    ('Quezon', 'Puerto Princesa'),
+    ('Narra', 'Puerto Princesa'),
+    ('Aborlan', 'Puerto Princesa'),
+
+    -- Inter-town routes (north Palawan)
+    ('El Nido', 'San Vicente'),
+    ('San Vicente', 'El Nido'),
+    ('El Nido', 'Roxas'),
+    ('Roxas', 'El Nido'),
+    ('Roxas', 'San Vicente'),
+    ('San Vicente', 'Roxas'),
+
+    -- Inter-town routes (south Palawan)
+    ('Narra', 'Brooke\'s Point'),
+    ('Brooke\'s Point', 'Narra'),
+    ('Quezon', 'Narra'),
+    ('Narra', 'Quezon'),
+    ('Aborlan', 'Narra'),
+    ('Narra', 'Aborlan');
+
+-- ============================================================
+-- Schedules
+-- Fares based on approximate real distances/rates in Palawan
+-- Puerto Princesa <-> El Nido  ~420 km  => ~650 PHP
+-- Puerto Princesa <-> Coron    ~240 km  => ~450 PHP
+-- Puerto Princesa <-> San Vicente ~180 km => ~350 PHP
+-- Puerto Princesa <-> Roxas    ~130 km  => ~250 PHP
+-- Puerto Princesa <-> Narra     ~80 km  => ~150 PHP
+-- Puerto Princesa <-> Aborlan   ~70 km  => ~130 PHP
+-- Puerto Princesa <-> Quezon    ~90 km  => ~160 PHP
+-- Puerto Princesa <-> Brooke's Point ~190 km => ~320 PHP
+-- ============================================================
+
+-- Puerto Princesa -> El Nido  (bus_id=1, route_id=1)
+INSERT INTO schedules (bus_id, route_id, fare, depart_time) VALUES
+    (1, 1, 650.00, '2025-07-01 06:00:00'),
+    (2, 1, 650.00, '2025-07-01 08:00:00'),
+    (1, 1, 650.00, '2025-07-02 06:00:00'),
+    (2, 1, 650.00, '2025-07-02 08:00:00');
+
+-- El Nido -> Puerto Princesa  (bus_id=3, route_id=9)
+INSERT INTO schedules (bus_id, route_id, fare, depart_time) VALUES
+    (3, 9, 650.00, '2025-07-01 07:00:00'),
+    (4, 9, 650.00, '2025-07-01 09:00:00'),
+    (3, 9, 650.00, '2025-07-02 07:00:00'),
+    (4, 9, 650.00, '2025-07-02 09:00:00');
+
+-- Puerto Princesa -> San Vicente  (bus_id=5, route_id=4)
+INSERT INTO schedules (bus_id, route_id, fare, depart_time) VALUES
+    (5, 4, 350.00, '2025-07-01 07:00:00'),
+    (5, 4, 350.00, '2025-07-01 13:00:00'),
+    (5, 4, 350.00, '2025-07-02 07:00:00');
+
+-- San Vicente -> Puerto Princesa  (bus_id=6, route_id=12)
+INSERT INTO schedules (bus_id, route_id, fare, depart_time) VALUES
+    (6, 12, 350.00, '2025-07-01 06:00:00'),
+    (6, 12, 350.00, '2025-07-01 12:00:00'),
+    (6, 12, 350.00, '2025-07-02 06:00:00');
+
+-- Puerto Princesa -> Roxas  (bus_id=7, route_id=3)
+INSERT INTO schedules (bus_id, route_id, fare, depart_time) VALUES
+    (7, 3, 250.00, '2025-07-01 08:00:00'),
+    (7, 3, 250.00, '2025-07-01 14:00:00'),
+    (7, 3, 250.00, '2025-07-02 08:00:00');
+
+-- Roxas -> Puerto Princesa  (bus_id=8, route_id=11)
+INSERT INTO schedules (bus_id, route_id, fare, depart_time) VALUES
+    (8, 11, 250.00, '2025-07-01 07:30:00'),
+    (8, 11, 250.00, '2025-07-01 13:30:00'),
+    (8, 11, 250.00, '2025-07-02 07:30:00');
+
+-- Puerto Princesa -> Narra  (bus_id=1, route_id=7)
+INSERT INTO schedules (bus_id, route_id, fare, depart_time) VALUES
+    (1, 7, 150.00, '2025-07-03 06:00:00'),
+    (2, 7, 150.00, '2025-07-03 12:00:00');
+
+-- Puerto Princesa -> Brooke's Point  (bus_id=3, route_id=5)
+INSERT INTO schedules (bus_id, route_id, fare, depart_time) VALUES
+    (3, 5, 320.00, '2025-07-03 06:30:00'),
+    (4, 5, 320.00, '2025-07-03 11:00:00');
+
+-- Puerto Princesa -> Aborlan  (bus_id=5, route_id=8)
+INSERT INTO schedules (bus_id, route_id, fare, depart_time) VALUES
+    (5, 8, 130.00, '2025-07-03 07:00:00'),
+    (6, 8, 130.00, '2025-07-03 13:00:00');
+
+-- Puerto Princesa -> Quezon  (bus_id=7, route_id=6)
+INSERT INTO schedules (bus_id, route_id, fare, depart_time) VALUES
+    (7, 6, 160.00, '2025-07-03 07:00:00'),
+    (8, 6, 160.00, '2025-07-03 12:00:00');
+
+-- El Nido -> Roxas  (bus_id=1, route_id=19)
+INSERT INTO schedules (bus_id, route_id, fare, depart_time) VALUES
+    (1, 19, 420.00, '2025-07-04 07:00:00');
+
+-- Roxas -> El Nido  (bus_id=2, route_id=20)
+INSERT INTO schedules (bus_id, route_id, fare, depart_time) VALUES
+    (2, 20, 420.00, '2025-07-04 08:00:00');
+
+-- Narra -> Brooke's Point  (bus_id=3, route_id=23)
+INSERT INTO schedules (bus_id, route_id, fare, depart_time) VALUES
+    (3, 23, 180.00, '2025-07-04 09:00:00');
+
+-- Brooke's Point -> Narra  (bus_id=4, route_id=24)
+INSERT INTO schedules (bus_id, route_id, fare, depart_time) VALUES
+    (4, 24, 180.00, '2025-07-04 10:00:00');

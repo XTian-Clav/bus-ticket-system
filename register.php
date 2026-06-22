@@ -21,32 +21,33 @@ ob_start();
             <div class="grid sm:grid-cols-2 gap-4">
                 <div>
                     <label class="block text-sm font-medium text-navy mb-1">Full name</label>
-                    <input type="text" name="fullname" required
+                    <input type="text" name="fullname" required placeholder="Enter your full name"
                            class="w-full px-4 py-2.5 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium text-navy mb-1">Username</label>
-                    <input type="text" name="username" required
+                    <input type="text" name="username" required placeholder="Enter your username"
                            class="w-full px-4 py-2.5 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium text-navy mb-1">Email</label>
-                    <input type="email" name="email" required
+                    <input type="email" name="email" required placeholder="Enter your email"
                            class="w-full px-4 py-2.5 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium text-navy mb-1">Contact number</label>
-                    <input type="text" name="contact" required
+                    <input type="text" name="contact" required placeholder="Enter your contact number"
+                           pattern="09[0-9]{9}" maxlength="11" inputmode="numeric"
                            class="w-full px-4 py-2.5 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium text-navy mb-1">Password</label>
                     <div class="relative" x-data="{ show: false }">
-                        <input :type="show ? 'text' : 'password'" name="password" required
+                        <input :type="show ? 'text' : 'password'" name="password" required placeholder="Enter your password"
                                class="w-full px-4 py-2.5 pr-11 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
                         <button type="button" @click="show = !show" tabindex="-1"
                                 class="absolute inset-y-0 right-0 flex items-center pr-3.5 text-navy/40 hover:text-navy transition">
@@ -59,7 +60,7 @@ ob_start();
                 <div>
                     <label class="block text-sm font-medium text-navy mb-1">Confirm password</label>
                     <div class="relative" x-data="{ show: false }">
-                        <input :type="show ? 'text' : 'password'" name="confirm_password" required
+                        <input :type="show ? 'text' : 'password'" name="confirm_password" required placeholder="Confirm your password"
                                class="w-full px-4 py-2.5 pr-11 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
                         <button type="button" @click="show = !show" tabindex="-1"
                                 class="absolute inset-y-0 right-0 flex items-center pr-3.5 text-navy/40 hover:text-navy transition">
