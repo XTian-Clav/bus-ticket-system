@@ -61,7 +61,7 @@ ob_start();
                     <label class="block text-sm font-medium text-navy mb-1">Passenger</label>
                     <select x-model="form.user_id" required
                             class="w-full px-4 py-2.5 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
-                        <option value="">— Select user —</option>
+                        <option value="">Select user</option>
                         <template x-for="u in users" :key="u.id">
                             <option :value="u.id" x-text="`${u.fullname} (${u.username})`"></option>
                         </template>
@@ -72,7 +72,7 @@ ob_start();
                     <label class="block text-sm font-medium text-navy mb-1">Schedule</label>
                     <select x-model="form.schedule_id" @change="onScheduleChange()" required
                             class="w-full px-4 py-2.5 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
-                        <option value="">— Select schedule —</option>
+                        <option value="">Select schedule</option>
                         <template x-for="s in schedules" :key="s.id">
                             <option :value="s.id"
                                     x-text="`${s.source} → ${s.destination}`">

@@ -74,8 +74,13 @@ ob_start();
             </div>
             <div>
                 <label class="block text-sm font-medium text-navy mb-1">Fare</label>
-                <input x-model="form.fare" type="number" min="0" step="0.01" required
-                       class="w-full px-4 py-2.5 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
+                <div class="relative">
+                    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                        <span class="text-navy/50 text-sm">₱</span>
+                    </div>
+                    
+                    <input x-model="form.fare" type="number" min="0" step="1" required class="w-full pl-8 pr-4 py-2.5 border border-navy/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
+                </div>
             </div>
             <div>
                 <label class="block text-sm font-medium text-navy mb-1">Departure date &amp; time</label>
