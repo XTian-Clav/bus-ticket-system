@@ -3,19 +3,12 @@ declare(strict_types=1);
 
 // app/core/core_auth.php
 // Session bootstrap + RBAC guard functions.
-//
-// Usage at the top of any public endpoint:
-//   require_login();          ← any logged-in user
-//   require_admin();          ← admin only
-//
-// After login_user() succeeds, call set_auth_session($user) to store the session.
-// Call clear_auth_session() on logout.
 
 require_once __DIR__ . '/core_response.php';
 
 // ── SESSION BOOTSTRAP ─────────────────────────────────────────────────────────
 
-const SESSION_TIMEOUT = 60 * 15; // 60 seconds * 15 minutes
+const SESSION_TIMEOUT = 60 * 15; // 60 seconds * 15 = 15 minutes
 
 function start_session(): void
 {
@@ -44,7 +37,6 @@ function set_auth_session(array $user): void
     $_SESSION['user_id']  = $user['id'];
     $_SESSION['username'] = $user['username'];
     $_SESSION['role']     = $user['role'];
-    $_SESSION['avatar']   = $user['avatar'] ?? null;
 }
 
 function clear_auth_session(): void
@@ -52,12 +44,6 @@ function clear_auth_session(): void
     start_session();
     session_unset();
     session_destroy();
-}
-
-function update_session_avatar(string $filename): void
-{
-    start_session();
-    $_SESSION['avatar'] = $filename;
 }
 
 // ── SESSION READERS ───────────────────────────────────────────────────────────

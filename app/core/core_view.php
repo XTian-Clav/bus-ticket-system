@@ -2,9 +2,6 @@
 declare(strict_types=1);
 
 // app/core/core_view.php
-// Page-level guards + small helpers for server-rendered views.
-// core_auth.php guards (require_login/require_admin) reply with JSON —
-// correct for API endpoints, wrong for pages. These redirect instead.
 
 require_once __DIR__ . '/core_auth.php';
 

@@ -1,5 +1,0 @@
-# Defense-in-depth: this folder should only ever contain validated images,
-# but block script execution here regardless.
-<FilesMatch "\.(php|phtml|php\d)$">
-    Require all denied
-</FilesMatch>

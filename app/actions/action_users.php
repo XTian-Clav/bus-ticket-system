@@ -146,78 +146,7 @@ function delete_user(int $id): bool
         json_error('User not found.', 404);
     }
 
-    delete_avatar_file($user['avatar'] ?? null);
-
     return db_delete('users', $id);
-}
-
-// ── AVATAR UPLOAD ─────────────────────────────────────────────────────────────
-
-function update_user_avatar(int $id, array $file): string
-{
-    $user = get_user_by_id($id);
-    if (!$user) {
-        json_error('User not found.', 404);
-    }
-
-    validate_avatar_file($file);
-
-    $cfg      = require __DIR__ . '/../config/config_upload.php';
-    $ext      = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-    $filename = 'user-' . $id . '-' . bin2hex(random_bytes(6)) . '.' . $ext;
-
-    if (!is_dir($cfg['avatar_dir'])) {
-        mkdir($cfg['avatar_dir'], 0755, true);
-    }
-
-    if (!move_uploaded_file($file['tmp_name'], $cfg['avatar_dir'] . '/' . $filename)) {
-        json_error('Failed to save the uploaded file.', 500);
-    }
-
-    delete_avatar_file($user['avatar'] ?? null);
-    db_update('users', $id, ['avatar' => $filename]);
-
-    return $filename;
-}
-
-function validate_avatar_file(array $file): void
-{
-    if (empty($file['name']) || ($file['error'] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_NO_FILE) {
-        json_error('No file was uploaded.');
-    }
-
-    if ($file['error'] !== UPLOAD_ERR_OK) {
-        json_error('File upload failed. Please try again.');
-    }
-
-    $cfg = require __DIR__ . '/../config/config_upload.php';
-
-    if ($file['size'] > $cfg['max_size']) {
-        json_error('Image must be 2MB or smaller.');
-    }
-
-    $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-    if (!in_array($ext, $cfg['allowed_types'], true)) {
-        json_error('Only JPG, PNG, or WEBP images are allowed.');
-    }
-
-    if (!getimagesize($file['tmp_name'])) {
-        json_error('The uploaded file is not a valid image.');
-    }
-}
-
-function delete_avatar_file(?string $filename): void
-{
-    if (empty($filename)) {
-        return;
-    }
-
-    $cfg  = require __DIR__ . '/../config/config_upload.php';
-    $path = $cfg['avatar_dir'] . '/' . $filename;
-
-    if (is_file($path)) {
-        unlink($path);
-    }
 }
 
 // ── ADMIN CREATE USER ──────────────────────────────────────────────────────────

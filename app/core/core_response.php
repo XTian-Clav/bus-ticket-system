@@ -4,10 +4,6 @@ declare(strict_types=1);
 // app/core/core_response.php
 
 // ── BASE_URL ───────────────────────────────────────────────────────────────
-// The project may live in a subfolder of the web root (e.g. XAMPP's
-// htdocs/projects/bus-ticket-system instead of htdocs/ directly). Every
-// internal link/asset/API path in the views is prefixed with BASE_URL so
-// the app works no matter where it's placed — no manual config needed.
 if (!defined('BASE_URL')) {
     $projectRoot = realpath(__DIR__ . '/../..');
     $docRoot     = realpath($_SERVER['DOCUMENT_ROOT'] ?? '');
@@ -22,10 +18,8 @@ if (!defined('BASE_URL')) {
     define('BASE_URL', $base);
 }
 
-/**
- * Build an app-relative URL, accounting for BASE_URL.
- * url('/login.php') and url('login.php') both work the same way.
- */
+// Build an app-relative URL, accounting for BASE_URL.
+
 function url(string $path = ''): string
 {
     $path = trim($path, '/');

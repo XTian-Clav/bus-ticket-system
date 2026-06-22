@@ -5,6 +5,8 @@
 require_once __DIR__ . '/../../app/core/core_view.php';
 require_once __DIR__ . '/../../app/queries/query_users.php';
 
+start_session();
+
 $title = 'Profile';
 $user  = get_user_by_id(auth_user_id());
 
@@ -15,21 +17,44 @@ ob_start();
 
     <!-- Profile info card -->
     <div class="bg-white border border-navy/10 rounded-2xl shadow-sm p-6 mb-6">
-        <div class="flex items-center justify-between flex-wrap gap-4">
+        <div class="flex items-start justify-between flex-wrap gap-4">
+
+            <!-- Avatar + name + role badge -->
             <div class="flex items-center gap-4">
                 <span class="w-16 h-16 rounded-full bg-navy text-white flex items-center justify-center font-bold text-2xl flex-shrink-0">
                     <?= e(strtoupper(substr($user['fullname'] ?? $user['username'] ?? 'U', 0, 1))) ?>
                 </span>
                 <div>
-                    <p class="text-lg font-bold text-navy"><?= e($user['fullname'] ?? '—') ?></p>
-                    <p class="text-sm text-navy/60">@<?= e($user['username']) ?> · <?= e($user['email']) ?></p>
-                    <p class="text-sm text-navy/50 mt-0.5"><?= e($user['contact'] ?? '—') ?></p>
+                    <p class="text-xl font-bold text-navy"><?= e($user['fullname'] ?? '—') ?></p>
+                    <span class="inline-block mt-1 px-2.5 py-0.5 rounded-full text-xs font-semibold
+                        <?= $user['role'] === 'admin' ? 'bg-blue-100 text-blue-600' : 'bg-green-100 text-green-700' ?>">
+                        <?= e($user['role']) ?>
+                    </span>
                 </div>
             </div>
+
             <button @click="showEdit = true"
                     class="flex items-center gap-2 px-4 py-2 bg-navy text-white text-sm font-semibold rounded-lg hover:bg-navy-light transition">
                 <i class="ri-pencil-line"></i> Edit Profile
             </button>
+        </div>
+
+        <!-- Labeled fields -->
+        <div class="mt-6 grid sm:grid-cols-2 gap-4">
+            <?php foreach ([
+                ['ri-user-line',        'Username', $user['username']],
+                ['ri-mail-line',        'Email',    $user['email']],
+                ['ri-phone-line',       'Contact',  $user['contact'] ?? '—'],
+                ['ri-calendar-line',    'Member Since', date('F j, Y', strtotime($user['created_at']))],
+            ] as [$icon, $label, $value]): ?>
+                <div class="flex items-start gap-3 p-3 bg-offwhite rounded-xl">
+                    <i class="<?= $icon ?> text-navy/40 text-lg mt-0.5"></i>
+                    <div>
+                        <p class="text-xs text-navy/40 font-medium uppercase tracking-wide"><?= $label ?></p>
+                        <p class="text-sm font-semibold text-navy mt-0.5"><?= e($value) ?></p>
+                    </div>
+                </div>
+            <?php endforeach; ?>
         </div>
     </div>
 
