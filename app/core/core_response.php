@@ -11,7 +11,7 @@ if (!defined('BASE_URL')) {
     $base = '';
     if ($docRoot && $projectRoot && str_starts_with($projectRoot, $docRoot)) {
         $base = substr($projectRoot, strlen($docRoot));
-        $base = str_replace('\\', '/', $base); // normalize Windows path separators
+        $base = str_replace('\\', '/', $base);
         $base = rtrim($base, '/');
     }
 

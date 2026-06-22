@@ -1,7 +1,6 @@
 <?php
 // views/components/modal.php
 // Expects: $show (alpine expression, e.g. "showAdd"), $modal_title, $content (inner HTML/form)
-// Optional: $modal_width (tailwind max-w-* class, default max-w-md)
 $modal_width = $modal_width ?? 'max-w-xl';
 ?>
 <div x-show="<?= $show ?>" x-cloak

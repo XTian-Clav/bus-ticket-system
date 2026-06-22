@@ -15,7 +15,6 @@ ob_start();
 
 <div class="max-w-2xl" x-data="profilePage()">
 
-    <!-- Profile info card -->
     <div class="bg-white border border-navy/10 rounded-2xl shadow-sm p-6 mb-6">
         <div class="flex items-start justify-between flex-wrap gap-4">
 
@@ -39,7 +38,6 @@ ob_start();
             </button>
         </div>
 
-        <!-- Labeled fields -->
         <div class="mt-6 grid sm:grid-cols-2 gap-4">
             <?php foreach ([
                 ['ri-user-fill',        'Username', $user['username']],

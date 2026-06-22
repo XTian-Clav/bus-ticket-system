@@ -93,7 +93,6 @@ function update_user(int $id, array $data, bool $is_admin = false): bool
 
     $update = [];
 
-    // All users may update these fields
     foreach (['fullname', 'contact', 'username', 'email'] as $field) {
         if (isset($data[$field]) && trim((string) ($data[$field] ?? '')) !== '') {
             $update[$field] = trim($data[$field]);

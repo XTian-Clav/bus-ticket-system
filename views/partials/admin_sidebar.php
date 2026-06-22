@@ -39,7 +39,6 @@ $links = [
         <?php endforeach; ?>
     </nav>
 
-    <!-- User card -->
     <div class="px-3 py-4 border-t border-white/10">
         <a href="<?= url('/views/admin/admin_profile.php') ?>"
            class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/10 transition group">
